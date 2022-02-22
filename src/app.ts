@@ -9,9 +9,10 @@ const accessLogStream = fs.createWriteStream(__dirname + "/access.log", {
 const app = new Koa();
 
 // setup the logger
-app.use(morgan("combined", { stream: accessLogStream }));
+app.use(morgan(":method :status :url :http-version :response-time", { stream: accessLogStream }));
 
 app.use((ctx) => {
+  console.log(ctx.request.headers);
   ctx.body = "hello, world!";
 });
 
